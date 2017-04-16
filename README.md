@@ -1,5 +1,9 @@
-# GranblueFantasyPokerSimulator
-> Simulate and calculate the rate of poker win hands in the Higher-or-Lower Poker casino mini game in Granblue Fantasy.
+# Granblue Fantasy Poker Simulator
+ Simulate and calculate the rate of poker win hands in the Higher-or-Lower Poker casino mini game in Granblue Fantasy.  
+   
+     
+       
+       
 
 # Details of the game
 Granblue Fantasy (グランブルーファンタジー) is a role-playing video game developed by Cygames. It can be played on platform such as Android, IOS, Google Chrome App and browser.  
