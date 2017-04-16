@@ -17,7 +17,14 @@ public class Main {
             System.out.println(card);
             initialHand.add(card);
         });
-
+//        initialHand.add(new Card(5, 2));
+//        initialHand.add(new Card(4, 1));
+//        initialHand.add(new Card(3, 1));
+//        initialHand.add(new Card(1, 2));
+//        initialHand.add(new Card(1, 1));
+//        initialHand.stream().limit(5).forEach(card -> {
+//            System.out.println(card);
+//        });
         PokerHandAnalyzer.listAllHandsProbability(initialHand);
 
 //        System.out.println();

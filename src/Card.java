@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Created by Wen Yang on 14/4/2017.
  */
-public class Card implements Comparable<Card>{
+public class Card {
     final int RANK;     //1,2,3,4,5,6,7,8,9,10,11(J),12(Q),13(K),0 (Joker) /// ready to be changed to Ace as biggest
     final int SUIT;  //1 - Spade, 2 - Heart, 3 - Club, 4 - Diamond, 0 - Joker(wildcard)
 
@@ -38,11 +38,6 @@ public class Card implements Comparable<Card>{
         } else if (this.SUIT == 1 || this.SUIT == 3){
             return Ansi.ansi().render("@|black " + suit[this.SUIT] + " " + rank[this.RANK] + "|@").toString();
         }else {return super.toString();}
-    }
-
-    @Override
-    public int compareTo(Card c) {
-        return Integer.compare(this.RANK, c.RANK);
     }
 
 
