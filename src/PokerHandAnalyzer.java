@@ -14,7 +14,7 @@ public class PokerHandAnalyzer {
 
     static void listAllHandsProbability(final ArrayList<Card> initialHand) {
         PokerHandAnalyzer original = new PokerHandAnalyzer();
-        System.out.println("initial hand" + original.getTwoPairProbability());
+        System.out.println("initial hand: " + original.getTwoPairProbability());
 //        PokerHandAnalyzer test = new PokerHandAnalyzer(initialHand, new boolean[]{false, true, false,false, false});
 //        System.out.println("final hand" + test.getTwoPairProbability());
         for (int i = 0; i < Double.valueOf(Math.pow(2, 5)).intValue(); i++) {
@@ -44,13 +44,13 @@ public class PokerHandAnalyzer {
     double getTwoPairProbability() {        //(13-choose-2)(4-choose-2)(4-choose-2)(11-choose-1)(4-choose-1).
         double probability = 0.0;
         int size = this.finalHand.size();
-        int numberOfDistinctPattern = 3; // aabbc -> 3, which are a, b, and c
+        int numberOfDistinctGroup = 3; // aabbc -> 3 groups, which are a, b, and c
         ArrayList<Card> handPattern = new ArrayList<>();//fulfilled groups
         finalHand.stream().map(PokerRankWrapper::new).distinct().map(PokerRankWrapper::unwrap).forEach(handPattern::add);//remove duplicated rank and add to hand pattern
-        if (handPattern.size() > numberOfDistinctPattern){
+        if (handPattern.size() > numberOfDistinctGroup) {
             return probability;
         }
-        for (int i = handPattern.size(); i < numberOfDistinctPattern; i++) {
+        for (int i = handPattern.size(); i < numberOfDistinctGroup; i++) {
             handPattern.add(new Card(-1, -1));// add based on remaining empty group
         }
         BigInteger totalChance = C(this.totalRemainingDeck, 5 - size);
@@ -59,49 +59,22 @@ public class PokerHandAnalyzer {
         boolean deckDuplicateLookup[][] = new boolean[14][14];
 
 
-        if (size == 0) {
-            for (int i = 1; i < this.remainingDeck.length - 1; i++) {
-                if (this.remainingDeck[i] >= 2) {
-                    for (int j = i + 1; j < this.remainingDeck.length; j++) {
-                        if (this.remainingDeck[j] >= 2) {
-                            for (int k = 1; k < this.remainingDeck.length; k++) {
-                                if (k != i && k != j && this.remainingDeck[k] > 0) {
-                                    possibleCombination = possibleCombination.add(C(this.remainingDeck[i], 2).multiply(C(this.remainingDeck[j], 2)).multiply(C(this.remainingDeck[k], 1)));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else if (size <= 4) {
-            for (int m = 0; m < handPattern.size(); m++) {
-                for (int n = 0; n < handPattern.size(); n++) {
-                    if (n != m && !handDuplicateLookup[m][n]) {
-                        handDuplicateLookup[m][n] = true;
-                        handDuplicateLookup[n][m] = true; // marked as visited
-                        for (int o = 0; o < handPattern.size(); o++) {
-                            if (o != m && o != n) {
-                                //
-                                for (int i = 1; i < this.remainingDeck.length; i++) {
-                                    if (this.remainingDeck[i] >= 2 - this.getPopulation(handPattern.get(m).RANK) && this.getPopulation(handPattern.get(m).RANK) <= 2 && (handPattern.get(m).RANK == -1 || i == handPattern.get(m).RANK)) { //replace 2 with variable
-                                        for (int j = 1; j < this.remainingDeck.length; j++) {
-                                            boolean test1 = this.remainingDeck[j] >= 2 - this.getPopulation(handPattern.get(n).RANK);
-                                            boolean test2 = this.getPopulation(handPattern.get(n).RANK) <= 2;
-                                            boolean test3 = handPattern.get(n).RANK == -1;
-                                            boolean test4 = j == handPattern.get(n).RANK;
-                                            boolean test5 = (!deckDuplicateLookup[i][j]);
-                                            if (test1 && test2 && (test3 || test4) && test5) {
-                                                //if ((!deckDuplicateLookup[i][j]) && this.remainingDeck[j] >= 2 - this.getPopulation(handPattern.get(n).RANK) && this.getPopulation(handPattern.get(n).RANK) != 2 && (handPattern.get(n).RANK == -1 || i == handPattern.get(n).RANK)) {
-                                                deckDuplicateLookup[i][j] = true;
-                                                deckDuplicateLookup[j][i] = true;//visited
-                                                for (int k = 1; k < this.remainingDeck.length; k++) {
-                                                    boolean logicTest1 = k != i && k != j;
-                                                    boolean logicTest2 = this.remainingDeck[k] >= 1 - this.getPopulation(handPattern.get(o).RANK);
-                                                    boolean logicTest3 = this.getPopulation(handPattern.get(o).RANK) <= 1;
-                                                    boolean logicTest4 = (handPattern.get(o).RANK == -1 || k == handPattern.get(o).RANK);
-                                                    if (logicTest1 && logicTest2 && logicTest3 && logicTest4) {
-                                                        possibleCombination = possibleCombination.add(C(this.remainingDeck[i], 2 - this.getPopulation(handPattern.get(m).RANK)).multiply(C(this.remainingDeck[j], 2 - this.getPopulation(handPattern.get(n).RANK))).multiply(C(this.remainingDeck[k], 1 - this.getPopulation(handPattern.get(o).RANK))));
-                                                    }
+        for (int m = 0; m < handPattern.size(); m++) {
+            for (int n = 0; n < handPattern.size(); n++) {
+                if (n != m && !handDuplicateLookup[m][n]) {
+                    handDuplicateLookup[m][n] = true;
+                    handDuplicateLookup[n][m] = true; // marked as visited
+                    for (int o = 0; o < handPattern.size(); o++) {
+                        if (o != m && o != n) {
+                            for (int i = 1; i < this.remainingDeck.length; i++) {
+                                if (this.remainingDeck[i] >= 2 - this.getPopulation(handPattern.get(m).RANK) && this.getPopulation(handPattern.get(m).RANK) <= 2 && (handPattern.get(m).RANK == -1 || i == handPattern.get(m).RANK)) { //replace 2 with variable
+                                    for (int j = 1; j < this.remainingDeck.length; j++) {
+                                        if ((this.remainingDeck[j] >= 2 - this.getPopulation(handPattern.get(n).RANK)) && (this.getPopulation(handPattern.get(n).RANK) <= 2) && ((handPattern.get(n).RANK == -1) || (j == handPattern.get(n).RANK)) && (!deckDuplicateLookup[i][j]) && (i != j)) {
+                                            deckDuplicateLookup[i][j] = true;
+                                            deckDuplicateLookup[j][i] = true;//visited
+                                            for (int k = 1; k < this.remainingDeck.length; k++) {
+                                                if ((k != i && k != j) && (this.remainingDeck[k] >= 1 - this.getPopulation(handPattern.get(o).RANK)) && (this.getPopulation(handPattern.get(o).RANK) <= 1) && (handPattern.get(o).RANK == -1 || k == handPattern.get(o).RANK)) {
+                                                    possibleCombination = possibleCombination.add(C(this.remainingDeck[i], 2 - this.getPopulation(handPattern.get(m).RANK)).multiply(C(this.remainingDeck[j], 2 - this.getPopulation(handPattern.get(n).RANK))).multiply(C(this.remainingDeck[k], 1 - this.getPopulation(handPattern.get(o).RANK))));
                                                 }
                                             }
                                         }
@@ -112,7 +85,6 @@ public class PokerHandAnalyzer {
                     }
                 }
             }
-
         }
 
         probability = new BigDecimal(possibleCombination).divide(new BigDecimal(totalChance), 10, RoundingMode.HALF_UP).doubleValue();
