@@ -15,7 +15,7 @@ public class PokerHandAnalyzer {
     static void listAllHandsProbability(final ArrayList<Card> initialHand) {
         PokerHandAnalyzer original = new PokerHandAnalyzer();
         System.out.println("initial hand" + original.getTwoPairProbability());
-//        PokerHandAnalyzer test = new PokerHandAnalyzer(initialHand, new boolean[]{false, true, true, true, false});
+//        PokerHandAnalyzer test = new PokerHandAnalyzer(initialHand, new boolean[]{false, true, false,false, false});
 //        System.out.println("final hand" + test.getTwoPairProbability());
         for (int i = 0; i < Double.valueOf(Math.pow(2, 5)).intValue(); i++) {
             PokerHandAnalyzer a = new PokerHandAnalyzer(initialHand, binaryToBooleanArray(i, 5));
@@ -42,17 +42,20 @@ public class PokerHandAnalyzer {
     }
 
     double getTwoPairProbability() {        //(13-choose-2)(4-choose-2)(4-choose-2)(11-choose-1)(4-choose-1).
-        double probability;
+        double probability = 0.0;
         int size = this.finalHand.size();
         int numberOfDistinctPattern = 3; // aabbc -> 3, which are a, b, and c
         ArrayList<Card> handPattern = new ArrayList<>();//fulfilled groups
         finalHand.stream().map(PokerRankWrapper::new).distinct().map(PokerRankWrapper::unwrap).forEach(handPattern::add);//remove duplicated rank and add to hand pattern
+        if (handPattern.size() > numberOfDistinctPattern){
+            return probability;
+        }
         for (int i = handPattern.size(); i < numberOfDistinctPattern; i++) {
             handPattern.add(new Card(-1, -1));// add based on remaining empty group
         }
         BigInteger totalChance = C(this.totalRemainingDeck, 5 - size);
         BigInteger possibleCombination = BigInteger.ZERO;
-        boolean handDuplicateLookup[][] = new boolean[3][3];
+        boolean handDuplicateLookup[][] = new boolean[handPattern.size()][handPattern.size()];
         boolean deckDuplicateLookup[][] = new boolean[14][14];
 
 
@@ -70,7 +73,7 @@ public class PokerHandAnalyzer {
                     }
                 }
             }
-        } else if (size <= 3) {
+        } else if (size <= 4) {
             for (int m = 0; m < handPattern.size(); m++) {
                 for (int n = 0; n < handPattern.size(); n++) {
                     if (n != m && !handDuplicateLookup[m][n]) {
