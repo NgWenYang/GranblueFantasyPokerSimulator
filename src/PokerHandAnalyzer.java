@@ -17,7 +17,7 @@ public class PokerHandAnalyzer {
     private ArrayList<Card> finalHand = new ArrayList<>();
     private ArrayList<Card> handPattern = new ArrayList<>();
 
-    BigInteger combinationCount = BigInteger.ZERO;
+    //BigInteger combinationCount = BigInteger.ZERO;
 
     //empty constructor
     private PokerHandAnalyzer() {
@@ -97,13 +97,13 @@ public class PokerHandAnalyzer {
         }
     }
 
-    void fillPossibleCard(LinkedList<Integer> visitedRank, LinkedList<Integer> combinationPattern, LinkedList<Integer> winningHandPattern, int count) {
+    void fillPossibleCard(BigInteger[] combinationCount, LinkedList<Integer> visitedRank, LinkedList<Integer> combinationPattern, LinkedList<Integer> winningHandPattern, int count) {
         if (winningHandPattern.size() == visitedRank.size()) {
             BigInteger tempCombination = BigInteger.ONE;
             for (int i = 0; i < visitedRank.size(); i++) {
                 tempCombination = tempCombination.multiply(combination(remainingCardsInDeck[visitedRank.get(i)], winningHandPattern.get(i) - getPopulation(visitedRank.get(i))));
             }
-            combinationCount = combinationCount.add(tempCombination);
+            combinationCount[0] = combinationCount[0].add(tempCombination);
         } else {
             int i = 0;
             if (visitedRank.size() != 0) {
@@ -115,7 +115,7 @@ public class PokerHandAnalyzer {
                 if ((!visitedRank.contains(i)) && (combinationPattern.get(count) == i || combinationPattern.get(count) == -1) && (getPopulation(i) <= winningHandPattern.get(visitedRank.size())) && (remainingCardsInDeck[i] >= winningHandPattern.get(visitedRank.size()) - getPopulation(i))) {
                     LinkedList<Integer> newVisitedRank = new LinkedList<>(visitedRank);
                     newVisitedRank.add(i);
-                    fillPossibleCard(newVisitedRank, combinationPattern, winningHandPattern, count + 1);
+                    fillPossibleCard(combinationCount, newVisitedRank, combinationPattern, winningHandPattern, count + 1);
                 }
                 i++;
             }
@@ -128,7 +128,7 @@ public class PokerHandAnalyzer {
         double probability = 0.0;
 
         //total possible combination count
-        //BigInteger possibleCombination = BigInteger.ZERO;
+        BigInteger combinationCount[] = new BigInteger[]{BigInteger.ZERO};
 
         //number of all possible combinationPattern from the pattern
         BigInteger totalDrawingChance = combination(this.totalRemainingDeck, 5 - this.finalHand.size());
@@ -158,12 +158,12 @@ public class PokerHandAnalyzer {
         subset(combinationPattern, elements, new LinkedList<>(), elements, compactWinningHandPattern);
         combinationPattern = new LinkedList<>(combinationPattern.stream().distinct().collect(Collectors.toList()));
 
-        // TODO: transfer combinationPattern pattern to actual number
+        //
         for (int i = 0; i < combinationPattern.size(); i++) {
-            fillPossibleCard(new LinkedList<>(), combinationPattern.get(i), winningHandPattern, 0);
+            fillPossibleCard(combinationCount, new LinkedList<>(), combinationPattern.get(i), winningHandPattern, 0);
         }
 
-        probability = new BigDecimal(combinationCount).divide(new BigDecimal(totalDrawingChance), 10, RoundingMode.HALF_UP).doubleValue();
+        probability = new BigDecimal(combinationCount[0]).divide(new BigDecimal(totalDrawingChance), 10, RoundingMode.HALF_UP).doubleValue();
         return probability;
     }
 
