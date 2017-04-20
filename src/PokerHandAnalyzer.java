@@ -1,6 +1,8 @@
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -12,7 +14,8 @@ import java.util.stream.Collectors;
 
 public class PokerHandAnalyzer {
     private int totalRemainingDeck = 53;
-    private int[] remainingCardsInDeck = {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4};             //1 for joker, 4 for each card, distribution of cards
+    //1 for joker, 4 for each card, distribution of cards
+    private int[] remainingCardsInDeck = {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
 
     private ArrayList<Card> finalHand = new ArrayList<>();
     private ArrayList<Card> handPattern = new ArrayList<>();
@@ -40,23 +43,30 @@ public class PokerHandAnalyzer {
         }
 
         //build hand pattern by removing duplicated rank
-        finalHand.stream().filter(card -> card.RANK != 0).map(PokerRankWrapper::new).distinct().map(PokerRankWrapper::unwrap).forEach(handPattern::add);
+        finalHand.stream()
+                .filter(card -> card.RANK != 0)
+                .map(PokerRankWrapper::new)
+                .distinct()
+                .map(PokerRankWrapper::unwrap)
+                .collect(Collectors.toList())
+                .forEach(handPattern::add);
     }
 
     //generate all patterns and probability
-    static void listAllHandsProbability(final ArrayList<Card> initialHand) {
+    static void listAllHandsProbability(ArrayList<Card> fullDeck, final ArrayList<Card> initialHand) {
         //initial hand
-        PokerHandAnalyzer original = new PokerHandAnalyzer();
-        System.out.println("initial hand: " + original.getTwoPairProbability());
+//        PokerHandAnalyzer original = new PokerHandAnalyzer();
+//        System.out.println("initial hand: " + original.getTwoPairProbability());
 
         //final hand testing
 //        PokerHandAnalyzer test = new PokerHandAnalyzer(initialHand, new boolean[]{false, true, false, false, false});
 //        System.out.println("final hand" + test.getTwoPairProbability());
 
         //all possible shuffles (2^5 = 32 types)
+        NumberFormat formatter = new DecimalFormat("#0.0000000000");
         for (int i = 0; i < Double.valueOf(Math.pow(2, 5)).intValue(); i++) {
             PokerHandAnalyzer pattern = new PokerHandAnalyzer(initialHand, binaryToBooleanArray(i, 5));
-            System.out.println("Probability after shuffling card#" + new StringBuilder(String.format("%5s", Integer.toBinaryString(i)).replace(' ', '0')).reverse().toString() + ": " + pattern.getTwoPairProbability()); //referred from Satish answered May 25 '11 at 20:29 in StackOverFlow
+            System.out.println("Probability after shuffling card#" + new StringBuilder(String.format("%5s", Integer.toBinaryString(i)).replace(' ', '0')).reverse().toString() + ": " + formatter.format(pattern.getTwoPairProbability())); //referred from Satish answered May 25 '11 at 20:29 in StackOverFlow
         }
 
 
@@ -136,6 +146,40 @@ public class PokerHandAnalyzer {
         return new BigDecimal(combinationCount).divide(new BigDecimal(combination(this.totalRemainingDeck, 5 - this.finalHand.size())), 10, RoundingMode.HALF_UP).doubleValue();
 
     }
+    //brute force for checking
+    double getTwoPairProbability2(ArrayList<Card> fullDeck){
+            long totalMatchingCombination = 0;
+            int[] deckSize = new int[5];
+            Arrays.fill(deckSize,fullDeck.size());
+            for(int i = 0; i < finalHand.size(); i++){
+                deckSize[4 - i] = 1;
+            }
+            for (int i = deckSize[0] == 1? 0 :  0; i < deckSize[0]; i++) {
+                for (int j = deckSize[1] == 1? 0 : i + 1; j < deckSize[1]; j++) {
+                    for (int k = deckSize[2] == 1? 0 : j + 1; k < deckSize[2]; k++) {
+                        for (int l = deckSize[3] == 1? 0 : k + 1; l < deckSize[3]; l++) {
+                            for (int m = deckSize[4] == 1? 0 : l + 1; m < deckSize[4]; m++) {
+                                ArrayList<Card> hand = new ArrayList<>(finalHand);
+                                if (finalHand.size() < 5)
+                                hand.add(fullDeck.get(i));
+                                if (finalHand.size() < 4)
+                                hand.add(fullDeck.get(j));
+                                if (finalHand.size() < 3)
+                                hand.add(fullDeck.get(k));
+                                if (finalHand.size() < 2)
+                                hand.add(fullDeck.get(l));
+                                if (finalHand.size() < 1)
+                                hand.add(fullDeck.get(m));
+                                if (checkPattern(hand, new LinkedList<>(Arrays.asList(new Integer[]{2, 2, 1})))) {
+                                    totalMatchingCombination++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        return new BigDecimal(totalMatchingCombination).divide(new BigDecimal(combination(this.totalRemainingDeck, 5 - this.finalHand.size())), 10, RoundingMode.HALF_UP).doubleValue();
+    }
 
     BigInteger getPossibleCombination(LinkedList winningHandPattern, LinkedList compactWinningHandPattern) {
 
@@ -181,7 +225,7 @@ public class PokerHandAnalyzer {
     }
 
 //    old messy way
-//    double getTwoPairProbability2() {        //(13-choose-2)(4-choose-2)(4-choose-2)(11-choose-1)(4-choose-1).
+//    double getTwoPairProbability() {        //(13-choose-2)(4-choose-2)(4-choose-2)(11-choose-1)(4-choose-1).
 //        double probability = 0.0;
 //        int numberOfDistinctGroup = 3; // aabbc -> 3 groups, which are a, b, and c
 //        ArrayList<Card> handPattern = new ArrayList<>();//fulfilled groups
@@ -241,7 +285,7 @@ public class PokerHandAnalyzer {
                 if (winningHandPattern.get(i) == frequency[j]) {
                     frequency[j] = 0;
                     break;
-                } else {
+                }else if( j == frequency.length-1){
                     return false;
                 }
             }
@@ -250,6 +294,26 @@ public class PokerHandAnalyzer {
         //return Arrays.stream(frequency).allMatch(f -> f == 0);
     }
 
+
+    boolean checkPattern(ArrayList<Card> finalHand, LinkedList<Integer> winningHandPattern) {
+        int[] frequency = new int[14];
+        for (int i = 0; i < finalHand.size(); i++) {
+            if (finalHand.get(i).RANK != 0) {
+                frequency[finalHand.get(i).RANK]++;
+            }
+        }
+        for (int i = 0; i < winningHandPattern.size(); i++) {
+            for (int j = 0; j < frequency.length; j++) {
+                if (winningHandPattern.get(i) == frequency[j]) {
+                    frequency[j] = 0;
+                    break;
+                } else if (j == frequency.length - 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     //calculate the number of combination
     static BigInteger combination(final int N, final int K) {  //referred from polygenelubricants answered May 28 '10 at 14:34 in StackOverFlow
