@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 
 public class PokerHandAnalyzer {
-    private int totalRemainingDeck = 52;
+    private int totalRemainingDeck = 53;
     private int[] remainingCardsInDeck = {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4};             //1 for joker, 4 for each card, distribution of cards
 
     private ArrayList<Card> finalHand = new ArrayList<>();
@@ -33,17 +33,14 @@ public class PokerHandAnalyzer {
             //minus the initial hand from deck
             totalRemainingDeck--;
             //draw a card
-            if (cardToShuffle[i]) {
-                //totalRemainingDeck--;
-            } else {
+            if ((!cardToShuffle[i])) {
                 // move to final hand
                 finalHand.add(initialHand.get(i));
             }
         }
 
         //build hand pattern by removing duplicated rank
-        finalHand.stream().map(PokerRankWrapper::new).distinct().map(PokerRankWrapper::unwrap).forEach(handPattern::add);
-
+        finalHand.stream().filter(card -> card.RANK != 0).map(PokerRankWrapper::new).distinct().map(PokerRankWrapper::unwrap).forEach(handPattern::add);
     }
 
     //generate all patterns and probability
@@ -124,25 +121,42 @@ public class PokerHandAnalyzer {
 
     //new way of generating probability
     double getTwoPairProbability() {
-        //final probability
-        double probability = 0.0;
+        BigInteger combinationCount = BigInteger.ZERO;
+        if (finalHand.stream().noneMatch(card -> card.RANK == 0)) {
+            combinationCount = combinationCount.add(getPossibleCombination(new LinkedList<>(Arrays.asList(new Integer[]{2, 2, 1})), new LinkedList<>(Arrays.asList(new Integer[]{2, 1}))));
+
+        }
+        if (remainingCardsInDeck[0] == 1 || finalHand.stream().anyMatch(card -> card.RANK == 0)) {
+            //if (remainingCardsInDeck[0] == 1 ){totalRemainingDeck --;}
+            combinationCount = combinationCount.add(getPossibleCombination(new LinkedList<>(Arrays.asList(new Integer[]{2, 1, 1})), new LinkedList<>(Arrays.asList(new Integer[]{1, 2}))));
+            //if (remainingCardsInDeck[0] == 1 ){totalRemainingDeck ++;}
+        }
+        //s1 initial got joker, didnt change, s2 initial got joker, changed, s3 initial no joker, get no joker, s4 initial no joker, get joker
+
+        return new BigDecimal(combinationCount).divide(new BigDecimal(combination(this.totalRemainingDeck, 5 - this.finalHand.size())), 10, RoundingMode.HALF_UP).doubleValue();
+
+    }
+
+    BigInteger getPossibleCombination(LinkedList winningHandPattern, LinkedList compactWinningHandPattern) {
 
         //total possible combination count
         BigInteger combinationCount[] = new BigInteger[]{BigInteger.ZERO};
-
-        //number of all possible combinationPattern from the pattern
-        BigInteger totalDrawingChance = combination(this.totalRemainingDeck, 5 - this.finalHand.size());
 
         //all possible combination pattern before going through the deck
         LinkedList<LinkedList<Integer>> combinationPattern = new LinkedList<>();
 
         // aabbc -> [2,1], 2 x double group + 1 x dingle group
-        LinkedList<Integer> winningHandPattern = new LinkedList<>(Arrays.asList(new Integer[]{2, 2, 1}));
-        LinkedList<Integer> compactWinningHandPattern = new LinkedList<>(Arrays.asList(new Integer[]{2, 1}));
+        //LinkedList<Integer> winningHandPattern = new LinkedList<>(Arrays.asList(new Integer[]{2, 2, 1}));
+        //LinkedList<Integer> compactWinningHandPattern = new LinkedList<>(Arrays.asList(new Integer[]{2, 1}));
+
+        //already matches the pattern
+        if (checkPattern(winningHandPattern)) {
+            return combination(this.totalRemainingDeck, 5 - this.finalHand.size());
+        }
 
         //return zero for impossible hand pattern
         if (handPattern.size() > winningHandPattern.size()) {
-            return probability;
+            return combinationCount[0];
         }
 
         // add empty space slot for drawing card to pattern
@@ -163,8 +177,7 @@ public class PokerHandAnalyzer {
             fillPossibleCard(combinationCount, new LinkedList<>(), combinationPattern.get(i), winningHandPattern, 0);
         }
 
-        probability = new BigDecimal(combinationCount[0]).divide(new BigDecimal(totalDrawingChance), 10, RoundingMode.HALF_UP).doubleValue();
-        return probability;
+        return combinationCount[0];
     }
 
 //    old messy way
@@ -214,6 +227,29 @@ public class PokerHandAnalyzer {
 //        probability = new BigDecimal(possibleCombination).divide(new BigDecimal(totalChance), 10, RoundingMode.HALF_UP).doubleValue();
 //        return probability;
 //    }
+
+    //check pattern
+    boolean checkPattern(LinkedList<Integer> winningHandPattern) {
+        int[] frequency = new int[14];
+        for (int i = 0; i < finalHand.size(); i++) {
+            if (finalHand.get(i).RANK != 0) {
+                frequency[finalHand.get(i).RANK]++;
+            }
+        }
+        for (int i = 0; i < winningHandPattern.size(); i++) {
+            for (int j = 0; j < frequency.length; j++) {
+                if (winningHandPattern.get(i) == frequency[j]) {
+                    frequency[j] = 0;
+                    break;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+        //return Arrays.stream(frequency).allMatch(f -> f == 0);
+    }
+
 
     //calculate the number of combination
     static BigInteger combination(final int N, final int K) {  //referred from polygenelubricants answered May 28 '10 at 14:34 in StackOverFlow

@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0280be4c-ab9c-49d3-b228-daade12eced3" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Card.java" afterPath="$PROJECT_DIR$/src/Card.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PokerHandAnalyzer.java" afterPath="$PROJECT_DIR$/src/PokerHandAnalyzer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -15,11 +18,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+            <state relative-caret-position="218">
+              <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -27,21 +30,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PokerHandAnalyzer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PokerHandAnalyzer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PokerHandAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="99" column="25" lean-forward="true" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="25" />
+            <state relative-caret-position="255">
+              <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
               <folding>
                 <element signature="docComment;class#PokerHandAnalyzer#0" expanded="false" />
                 <element signature="method#PokerHandAnalyzer#0;class#PokerHandAnalyzer#0" expanded="false" />
-                <element signature="method#PokerHandAnalyzer#1;class#PokerHandAnalyzer#0" expanded="false" />
-                <element signature="method#listAllHandsProbability#0;class#PokerHandAnalyzer#0" expanded="false" />
                 <element signature="method#subset#0;class#PokerHandAnalyzer#0" expanded="false" />
-                <element signature="e#8069#8088#0" expanded="false" />
-                <element signature="method#binaryToBooleanArray#0;class#PokerHandAnalyzer#0" expanded="false" />
-                <element signature="class#PokerRankWrapper#0;class#PokerHandAnalyzer#0" expanded="false" />
-                <element signature="e#13736#13768#0" expanded="false" />
+                <element signature="method#fillPossibleCard#0;class#PokerHandAnalyzer#0" expanded="false" />
+                <element signature="e#9068#9087#0" expanded="false" />
+                <element signature="method#combination#0;class#PokerHandAnalyzer#0" expanded="false" />
+                <element signature="method#getPopulation#0;class#PokerHandAnalyzer#0" expanded="false" />
+                <element signature="e#14983#14984#0" expanded="true" />
+                <element signature="e#15023#15024#0" expanded="true" />
+                <element signature="e#15480#15512#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -50,7 +54,7 @@
       <file leaf-file-name="Card.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Card.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="164">
               <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -380,8 +384,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18683812" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="84" y="123" width="1182" height="584" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32565284" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32565284" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -392,8 +396,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40092167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40092167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -406,7 +410,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="80" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/PokerHandAnalyzer.java</url>
+          <line>152</line>
+          <properties />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="88" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -427,18 +439,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PokerHandAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="99" column="9" lean-forward="false" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="25" />
+          <folding>
+            <element signature="docComment;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#PokerHandAnalyzer#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#subset#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#fillPossibleCard#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#9068#9087#0" expanded="false" />
+            <element signature="method#combination#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#getPopulation#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#14983#14984#0" expanded="true" />
+            <element signature="e#15023#15024#0" expanded="true" />
+            <element signature="e#15480#15512#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PokerHandAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="163" column="3" lean-forward="false" selection-start-line="163" selection-start-column="3" selection-end-line="163" selection-end-column="3" />
           <folding>
             <element signature="docComment;class#PokerHandAnalyzer#0" expanded="false" />
             <element signature="method#PokerHandAnalyzer#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="method#PokerHandAnalyzer#1;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="method#listAllHandsProbability#0;class#PokerHandAnalyzer#0" expanded="false" />
             <element signature="method#subset#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="e#8069#8088#0" expanded="false" />
-            <element signature="method#binaryToBooleanArray#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="class#PokerRankWrapper#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="e#13736#13768#0" expanded="false" />
+            <element signature="method#fillPossibleCard#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#9068#9087#0" expanded="false" />
+            <element signature="method#combination#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#getPopulation#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#14983#14984#0" expanded="true" />
+            <element signature="e#15023#15024#0" expanded="true" />
+            <element signature="e#15480#15512#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -486,16 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Card.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/src.zip!/java/util/LinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -504,10 +546,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/Card.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+        <state relative-caret-position="164">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -516,18 +558,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PokerHandAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="99" column="25" lean-forward="true" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="25" />
+        <state relative-caret-position="255">
+          <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
           <folding>
             <element signature="docComment;class#PokerHandAnalyzer#0" expanded="false" />
             <element signature="method#PokerHandAnalyzer#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="method#PokerHandAnalyzer#1;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="method#listAllHandsProbability#0;class#PokerHandAnalyzer#0" expanded="false" />
             <element signature="method#subset#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="e#8069#8088#0" expanded="false" />
-            <element signature="method#binaryToBooleanArray#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="class#PokerRankWrapper#0;class#PokerHandAnalyzer#0" expanded="false" />
-            <element signature="e#13736#13768#0" expanded="false" />
+            <element signature="method#fillPossibleCard#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#9068#9087#0" expanded="false" />
+            <element signature="method#combination#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="method#getPopulation#0;class#PokerHandAnalyzer#0" expanded="false" />
+            <element signature="e#14983#14984#0" expanded="true" />
+            <element signature="e#15023#15024#0" expanded="true" />
+            <element signature="e#15480#15512#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
