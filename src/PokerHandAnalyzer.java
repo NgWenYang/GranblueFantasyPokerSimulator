@@ -34,7 +34,7 @@ public class PokerHandAnalyzer {
             totalRemainingDeck--;
             //draw a card
             if (cardToShuffle[i]) {
-                totalRemainingDeck--;
+                //totalRemainingDeck--;
             } else {
                 // move to final hand
                 finalHand.add(initialHand.get(i));
